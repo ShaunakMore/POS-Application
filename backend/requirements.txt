@@ -1,0 +1,44 @@
+# === Core backend framework ===
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+
+# === Environment & Utilities ===
+python-dotenv>=1.0.1
+requests>=2.31.0
+pydantic>=2.6.0
+
+# === Vector memory & embeddings ===
+chromadb>=0.5.5
+sentence-transformers>=2.6.0
+
+# === LangChain / LangGraph ecosystem ===
+langchain>=0.2.0
+langgraph>=0.0.60
+langchain-core>=0.2.0
+langchain-google-genai>=1.0.3
+
+# === Google Generative AI (Gemini) ===
+google-generativeai>=0.5.3
+
+# === Google APIs (Calendar, Gmail, etc.) ===
+google-api-python-client>=2.128.0
+google-auth>=2.30.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+
+# === Notion integration ===
+notion-client>=2.2.1
+
+# === Email & MIME handling ===
+googleapis-common-protos>=1.63.0
+
+# === Data handling / parsing ===
+jsonschema>=4.22.0
+
+# === Miscellaneous dependencies ===
+typing-extensions>=4.11.0
+python-dateutil>=2.9.0
+uuid>=1.30
+
+# === Optional: only if using LangGraph ReAct agents ===
+langchain-community>=0.2.0
