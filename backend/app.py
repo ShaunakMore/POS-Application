@@ -1,14 +1,14 @@
 from fastapi import FastAPI, Body, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from graphs.pos_graph import compiled as pos_graph
-from graphs.calender_agent import get_all_events
-from graphs.memory_agent import previous_convos
-from integrations.notion_client import get_pending_tasks
-from graphs.report_agent import handle_report
+from backend.graphs.pos_graph import compiled as pos_graph
+from backend.graphs.calender_agent import get_all_events
+from backend.graphs.memory_agent import previous_convos
+from backend.integrations.notion_client import get_pending_tasks
+from backend.graphs.report_agent import handle_report
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
-from memory.vector_memory import VectorMemory
+from backend.memory.vector_memory import VectorMemory
 import json
 
 memory = VectorMemory()
@@ -208,7 +208,7 @@ async def get_report():
 
 @app.get("/xp_info")
 async def get_xp():
-    with open("data/xp_memory.json","r") as f:
+    with open("backend/data/xp_memory.json","r") as f:
        xp_data = json.load(f)
     return {"data":xp_data}
 
