@@ -1,7 +1,7 @@
 from langgraph.graph import StateGraph, END
-from graphs.pos_state import PosState
-from graphs.nodes.parent_node import parent_node
-from graphs.nodes.memory_node import memory_node
+from backend.graphs.pos_state import PosState
+from backend.graphs.nodes.parent_node import parent_node
+from backend.graphs.nodes.memory_node import memory_node
 
   
 graph = StateGraph(PosState)

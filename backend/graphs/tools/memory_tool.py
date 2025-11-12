@@ -1,5 +1,5 @@
 from langchain_core.tools import tool
-from memory.vector_memory import VectorMemory
+from backend.memory.vector_memory import VectorMemory
 from datetime import datetime
 
 memory = VectorMemory()

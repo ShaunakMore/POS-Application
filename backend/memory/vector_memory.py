@@ -3,8 +3,8 @@ from sentence_transformers import SentenceTransformer
 import uuid
 
 class VectorMemory:
-  def __init__(self, file_path="data/memory_store.json"):
-    self.client = chromadb.PersistentClient(path="data/vector_db")
+  def __init__(self, file_path="backend/data/memory_store.json"):
+    self.client = chromadb.PersistentClient(path="backend/data/vector_db")
     self.collection = self.client.get_or_create_collection(name="pos_memory")
     self.model = SentenceTransformer("all-MiniLM-L6-v2") 
   

@@ -1,6 +1,6 @@
-from integrations.notion_client import add_task_to_notion
-from graphs.base_agent import make_response
-from graphs.xp_agent import handle_xp_estimation
+from backend.integrations.notion_client import add_task_to_notion
+from backend.graphs.base_agent import make_response
+from backend.graphs.xp_agent import handle_xp_estimation
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv

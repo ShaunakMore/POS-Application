@@ -1,5 +1,5 @@
 from langchain_core.tools import tool
-from graphs.calender_agent import handle_calendar, get_free_slots, get_busy_slots
+from backend.graphs.calender_agent import handle_calendar, get_free_slots, get_busy_slots
 
 @tool
 def calendar_tool(prompt: str,action: str = "add") -> str:

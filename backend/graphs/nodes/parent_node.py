@@ -3,12 +3,12 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.prebuilt import create_react_agent
 from dotenv import load_dotenv
 
-from graphs.tools.task_tool import task_tool
-from graphs.tools.calendar_tool import calendar_tool
-from graphs.tools.report_tool import report_tool
-from graphs.tools.memory_tool import add_memory_tool
-from graphs.tools.search_memory_tool import search_memory_tool
-from graphs.tools.email_tool import email_tool
+from backend.graphs.tools.task_tool import task_tool
+from backend.graphs.tools.calendar_tool import calendar_tool
+from backend.graphs.tools.report_tool import report_tool
+from backend.graphs.tools.memory_tool import add_memory_tool
+from backend.graphs.tools.search_memory_tool import search_memory_tool
+from backend.graphs.tools.email_tool import email_tool
 
 load_dotenv()
 

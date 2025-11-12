@@ -1,6 +1,6 @@
 from langchain_core.tools import tool
-from graphs.task_agent import handle_tasks
-from integrations.notion_client import update_task, get_completed_tasks, get_pending_tasks
+from backend.graphs.task_agent import handle_tasks
+from backend.integrations.notion_client import update_task, get_completed_tasks, get_pending_tasks
 
 @tool
 def task_tool(prompt: str= "", action:str = "add", task_name:str = "") -> str:

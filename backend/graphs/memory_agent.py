@@ -1,4 +1,4 @@
-from memory.conversation_memory import ConversationMemory
+from backend.memory.conversation_memory import ConversationMemory
 
 short_term = ConversationMemory()
 

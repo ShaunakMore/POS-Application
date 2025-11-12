@@ -1,6 +1,6 @@
 from datetime import datetime
-from memory.vector_memory import VectorMemory
-from memory.conversation_memory import ConversationMemory
+from backend.memory.vector_memory import VectorMemory
+from backend.memory.conversation_memory import ConversationMemory
 
 long_term = VectorMemory()
 short_term = ConversationMemory()

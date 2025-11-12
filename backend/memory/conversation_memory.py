@@ -5,7 +5,7 @@ import uuid
 
 class ConversationMemory:
     def __init__(self, limit: int = 10):
-        self.client = chromadb.PersistentClient(path="data/vector_db/short_term")
+        self.client = chromadb.PersistentClient(path="backend/data/vector_db/short_term")
         self.collection = self.client.get_or_create_collection(name="conversation_memory")
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
         self.limit = limit

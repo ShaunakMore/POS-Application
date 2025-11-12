@@ -1,5 +1,5 @@
 from langchain_core.tools import tool
-from graphs.email_agent import send_email, read_email
+from backend.graphs.email_agent import send_email, read_email
 
 @tool
 def email_tool(action: str = "send", to: str = "", subject: str = "", body: str = "", query: str = "", max_results: int = 5) ->str:

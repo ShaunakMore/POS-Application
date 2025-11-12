@@ -1,5 +1,5 @@
 from langchain_core.tools import tool
-from graphs.report_agent import handle_report
+from backend.graphs.report_agent import handle_report
 
 @tool
 def report_tool() -> str:

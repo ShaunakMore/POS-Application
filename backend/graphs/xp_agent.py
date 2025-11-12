@@ -7,7 +7,7 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY")) #type: ignore
 model = genai.GenerativeModel("gemini-2.0-flash") #type: ignore
 
-XP_FILE = "data/xp_memory.json"
+XP_FILE = "backend/data/xp_memory.json"
 
 def load_xp_memory():
   if not os.path.exists(XP_FILE):

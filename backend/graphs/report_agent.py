@@ -1,6 +1,6 @@
-from integrations.notion_client import get_all_tasks
+from backend.integrations.notion_client import get_all_tasks
 from datetime import datetime
-from graphs.base_agent import make_response
+from backend.graphs.base_agent import make_response
 
 def handle_report():
     """
