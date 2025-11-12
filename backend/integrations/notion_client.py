@@ -102,10 +102,8 @@ def update_task(task_name):
         )
     results = response["results"]
     if results:
-      print(f"\nTask {task_name} found")
       page_id = results[0]["id"]
       if not page_id:
-          print(f"Task '{task_name}' not found in Notion.")
           return None
 
       notion.pages.update(
@@ -114,9 +112,6 @@ def update_task(task_name):
               "Status": {"select": {"name": "Completed"}}
           }
       )
-      return f"✅ Updated '{task_name}' → Status: Completed"
-    print("Task not found")
     return "Task Not Found"
   except Exception as e:
-    print(f"Error {e} occoured while updating")
     return "Could not update task"

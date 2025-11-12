@@ -32,14 +32,15 @@ def _get_service():
                 service = build("gmail","v1",credentials=creds)
                 return service
               except Exception as e:
-                raise RuntimeError(f"Failed to build Google Calendar service: {e}")
+                raise RuntimeError(f"Failed to build Gmail service: {e}")
           try:
             service = build("gmail","v1",credentials=creds)
             return service
           except Exception as e:
-            raise RuntimeError(f"Failed to build Google Calendar service: {e}")
+            raise RuntimeError(f"Failed to build Gmail service: {e}")
       except Exception as e:
           print(f"[WARN] Failed to load Google credentials from env vars: {e}")
+          raise RuntimeError(f"Failed to load Google Credentials from env vars: {e}")
 
 def send_email(to: str, subject: str, body: str):
   try:
@@ -86,6 +87,5 @@ def read_email(query: str, max_results: int = 3):
       
     return "\n\n".join(summaries)
   except Exception as e:
-    print(f"Could not read emails. Error - {e}")
     return f"Could not read emails. Error - {e}"
 

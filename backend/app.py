@@ -47,7 +47,6 @@ def detect_agent_from_response(response: str, tool_calls: list) -> str:
     if not tool_calls:
         return "default"
     
-    # Map tool names to agent personas
     tool_to_agent = {
         "task_tool": "TaskAgent",
         "create_task": "TaskAgent",
@@ -58,7 +57,6 @@ def detect_agent_from_response(response: str, tool_calls: list) -> str:
         "search_memory_tool": "MemoryAgent"
     }
     
-    # Get the last tool called (most relevant)
     last_tool = tool_calls[-1].get("tool", "")
     return tool_to_agent.get(last_tool, "default")
 
@@ -83,8 +81,7 @@ def apply_persona_styling(response: str, agent: str) -> str:
         
         return styled.text.strip()
     except Exception as e:
-        print(f"⚠️ Persona styling failed: {e}")
-        return response  # Fallback to original
+        return response  
 
 
 @app.post("/query")
@@ -96,13 +93,9 @@ async def query_pos(prompt: str = Body(..., embed=True)):
         raise HTTPException(status_code=400, detail="Prompt cannot be empty")
     
     try:
-        print(f"\n🔵 Incoming query: {prompt}")
         prev = previous_convos()
         # Execute the LangGraph
         result = pos_graph.invoke({"prompt": prompt,"memory":prev})
-        
-        print(f"✅ Graph execution complete")
-        print(f"📊 Result keys: {result.keys()}")
         
         # Extract response and metadata
         base_response = result.get("response", "I couldn't process that request.")
@@ -111,7 +104,6 @@ async def query_pos(prompt: str = Body(..., embed=True)):
         error = result.get("error")
         
         if error:
-            print(f"❌ Graph error: {error}")
             return {
                 "message": f"I encountered an issue: {error}",
                 "intent": "error",
@@ -120,24 +112,20 @@ async def query_pos(prompt: str = Body(..., embed=True)):
         
         # Detect which agent persona to use
         agent = detect_agent_from_response(base_response, tool_calls)
-        print(f"🎭 Using persona: {agent}")
         
         # Apply persona styling
         styled_response = apply_persona_styling(base_response, agent)
-        print(styled_response)
         return {
             "message": styled_response,
             "intent": intent,
             "agent": agent,
             "tool_calls": [tc.get("tool") for tc in tool_calls],
-            "raw_response": base_response  # Include for debugging
+            "raw_response": base_response
         }
         
     except Exception as e:
-        print(f"❌ Query processing error: {e}")
         import traceback
         traceback.print_exc()
-        
         raise HTTPException(
             status_code=500,
             detail=f"Failed to process query: {str(e)}"
@@ -155,7 +143,6 @@ async def get_tasks():
             "count": len(tasks)
         }
     except Exception as e:
-        print(f"❌ Failed to fetch tasks: {e}")
         raise HTTPException(
             status_code=500,
             detail=f"Failed to fetch tasks: {str(e)}"
@@ -173,7 +160,6 @@ async def get_events():
             "count": len(events)
         }
     except Exception as e:
-        print(f"❌ Failed to fetch events: {e}")
         raise HTTPException(
             status_code=500,
             detail=f"Failed to fetch events: {str(e)}"
@@ -190,7 +176,6 @@ async def get_memories():
             "memories": memories 
         }
     except Exception as e:
-        print(f"❌ Failed to fetch memories: {e}")
         raise HTTPException(
             status_code=500,
             detail=f"Failed to fetch memories: {str(e)}"
@@ -206,7 +191,6 @@ async def get_report():
         
         if isinstance(result, dict):
             message = result.get("message", "Report generated")
-            print(f"📊 Report: {message[:100]}...")
             
             return {
                 "message": message,
@@ -217,7 +201,6 @@ async def get_report():
         return {"message": str(result)}
         
     except Exception as e:
-        print(f"❌ Failed to generate report: {e}")
         raise HTTPException(
             status_code=500,
             detail=f"Failed to generate report: {str(e)}"
@@ -239,6 +222,10 @@ async def health_check():
         "version": "2.0",
         "framework": "LangGraph"
     }
+    
+@app.get("/healthz")
+def health():
+    return {"status": "ok"}
 
 
 @app.get("/")

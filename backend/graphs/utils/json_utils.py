@@ -12,14 +12,12 @@ def extract_json(text: str, key: str = None):
     # Try to locate the first and last braces
     match = re.search(r'\{.*\}', text, re.DOTALL)
     if not match:
-        print("⚠️ No JSON found in model response.")
         return None
 
     json_str = match.group(0)
     try:
         data = json.loads(json_str)
     except json.JSONDecodeError:
-        print("⚠️ JSON decode failed, returning raw text.")
         return None
 
     if key:

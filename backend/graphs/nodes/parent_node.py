@@ -41,7 +41,7 @@ def parent_node(state):
     prev_memory = state.get("memory", "")
 
     reasoning_input = f"{prev_memory}\n\nUser: {prompt}"
-    print(f"Previous convos:{reasoning_input}")
+    
     if not prompt.strip():
         return {
             "intent": "error",
@@ -74,12 +74,8 @@ def parent_node(state):
                         "args": tc.get("args")
                     })
         
-        print(f"✅ Agent response generated")
-        print(response_text)
         new_entry = f"USER: {prompt}\nASSISTANT: {response_text}"
         new_memory = prev_memory + "\n" + new_entry
-        if tool_calls:
-            print(f"🛠️  Tools called: {[tc['tool'] for tc in tool_calls]}")
         
         intent = "" 
         try: 
@@ -99,7 +95,6 @@ def parent_node(state):
         }
         
     except Exception as e:
-        print(f"❌ parent_node error: {e}")
         import traceback
         traceback.print_exc()
         

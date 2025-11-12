@@ -61,5 +61,4 @@ def handle_xp_estimation(task_data):
     return data
   
   except Exception as e:
-    print("⚠️ XP Estimation failed", e)
     return {"xp_assigned": 10, "reason": "Default XP assigned."}

@@ -68,11 +68,9 @@ def _parse_task(prompt: str) -> dict:
         if data["avatar"] not in valid_avatars:
             data["avatar"] = "Producer"
         
-        print(f"✅ Parsed task: {data}")
         return data
         
     except Exception as e:
-        print(f"⚠️ Gemini task parsing failed: {e}. Using defaults.")
         # Fallback with sensible defaults
         return {
             "task": prompt[:50].capitalize(),
@@ -88,21 +86,19 @@ def handle_tasks(prompt: str):
     Returns a formatted response for the user.
     """
     try:
-        # Step 1: Parse the task
-        parsed = _parse_task(prompt)
-        print(f"📋 Creating task: {parsed['task']}")
         
-        # Step 2: Get XP estimation
+        parsed = _parse_task(prompt)
+        
+        
         xp_result = handle_xp_estimation(parsed)
         xp_value = xp_result.get("xp_assigned", 10) if isinstance(xp_result, dict) else 10
         parsed["xp"] = xp_value
         
-        print(f"⭐ XP assigned: {xp_value}")
         
-        # Step 3: Add to Notion
+        
         notion_result = add_task_to_notion(parsed)
         
-        # Step 4: Format response
+       
         msg = (
             f"✅ Task created successfully!\n\n"
             f"📝 Task: {parsed['task']}\n"
@@ -118,10 +114,8 @@ def handle_tasks(prompt: str):
         })
         
     except Exception as e:
-        print(f"❌ Task creation error: {e}")
         import traceback
         traceback.print_exc()
-        
         return make_response(
             "TaskAgent", 
             False, 

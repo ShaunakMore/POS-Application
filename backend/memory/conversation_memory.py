@@ -28,7 +28,6 @@ class ConversationMemory:
         docs = results.get("documents", [])
         ids = results.get("ids", [])
         if len(docs) > self.limit:
-            # delete oldest extras
             to_delete = ids[:-self.limit]
             self.collection.delete(ids=to_delete)
 

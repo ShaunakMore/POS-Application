@@ -42,6 +42,7 @@ def _get_service():
           raise RuntimeError(f"Failed to build Google Calendar service: {e}")
     except Exception as e:
         print(f"[WARN] Failed to load Google credentials from env vars: {e}")
+        raise RuntimeError(f"Failed to load Google credentials from env vars: {e}")
 
   
 
@@ -171,7 +172,6 @@ def handle_calendar(prompt):
     }
     
     created = service.events().insert(calendarId="primary", body=event).execute()
-    print("✅ Created event link:", created.get("htmlLink", "No link returned"))
     msg = (
       f"Event created:{event_data['title']}\n"
       f"Time: {start_time} - {end_time} UTC"

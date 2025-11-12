@@ -21,7 +21,7 @@ def handle_report():
         pending = total - len(done)
         completion_rate = (len(done) / total * 100) if total > 0 else 0
         
-        # Calculate XP by avatar
+        
         avatars = {}
         total_xp = 0
         for t in tasks:
@@ -30,23 +30,23 @@ def handle_report():
             avatars[avatar] = avatars.get(avatar, 0) + xp
             total_xp += xp
         
-        # Calculate XP earned from completed tasks
+       
         earned_xp = sum(t.get("xp", 0) for t in done)
         
-        # Priority breakdown
+       
         priorities = {"High": 0, "Medium": 0, "Low": 0}
         for t in tasks:
             priority = t.get("priority", "Medium")
             if priority in priorities:
                 priorities[priority] += 1
         
-        # Format avatar breakdown
+        
         avatar_breakdown = "\n".join([
             f"  • {avatar}: {xp} XP" 
             for avatar, xp in sorted(avatars.items(), key=lambda x: x[1], reverse=True)
         ])
         
-        # Build comprehensive report
+        
         msg = (
             f"📊 **Productivity Report** - {datetime.now().strftime('%B %d, %Y')}\n\n"
             f"📝 **Task Overview:**\n"
@@ -76,7 +76,6 @@ def handle_report():
         })
         
     except Exception as e:
-        print(f"❌ Report generation error: {e}")
         import traceback
         traceback.print_exc()
         

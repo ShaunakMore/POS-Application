@@ -15,5 +15,4 @@ def memory_node(state):
     short_term.add_message("user", prompt)
     short_term.add_message("assistant", response)
 
-    print(f"💬 updated short-term semantic memory")
     return {"memory_status": "Memory updated."}

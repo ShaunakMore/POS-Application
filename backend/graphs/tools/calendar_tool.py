@@ -40,7 +40,6 @@ def calendar_tool(prompt: str,action: str = "add") -> str:
         try:
             free_slots = get_free_slots()
             free_slots_str = "\n".join([f"{s[0]} → {s[1]}" for s in free_slots]) or "No free slots found."
-            print("Free slots called")
             return free_slots_str
         except Exception as e:
             free_slots_str = f"Calendar lookup failed: {e}"
