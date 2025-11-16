@@ -1,9 +1,0 @@
-# === Frontend framework ===
-streamlit>=1.39.0
-
-# === HTTP requests ===
-requests>=2.31.0
-
-# === Date/time utilities (built-in, but good to specify for compatibility) ===
-python-dateutil>=2.9.0
-python-dotenv>=1.0.1
