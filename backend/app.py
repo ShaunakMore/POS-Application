@@ -5,13 +5,11 @@ from backend.graphs.calender_agent import get_all_events
 from backend.graphs.memory_agent import previous_convos
 from backend.integrations.notion_client import get_pending_tasks
 from backend.graphs.report_agent import handle_report
+from backend.memory.pinecone_db import add_previous_convos, get_all_long_term_mems
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
-from backend.memory.vector_memory import VectorMemory
 import json
-
-memory = VectorMemory()
 
 load_dotenv()
 
@@ -29,6 +27,7 @@ app.add_middleware(
 # Initialize Gemini for persona styling
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
+conversational_history = []
 
 # Persona definitions
 PERSONAS = {
@@ -91,11 +90,19 @@ async def query_pos(prompt: str = Body(..., embed=True)):
     """
     if not prompt or not prompt.strip():
         raise HTTPException(status_code=400, detail="Prompt cannot be empty")
-    
+
+    global conversational_history
     try:
-        prev = previous_convos()
+        if len(conversational_history) >= 50: 
+            conversational_history = conversational_history[-5:]
+            to_add = "\n\n".join(conversational_history)
+            add_previous_convos(to_add)
         # Execute the LangGraph
-        result = pos_graph.invoke({"prompt": prompt,"memory":prev})
+        prev = conversational_history[-5:]
+        history = "\n\n".join(prev)
+        result = pos_graph.invoke({"prompt": prompt,"memory":history})
+
+        conversational_history.append(f"User:{result["prompt"]}\n Response: {result["response"]}")
         
         # Extract response and metadata
         base_response = result.get("response", "I couldn't process that request.")
@@ -113,8 +120,6 @@ async def query_pos(prompt: str = Body(..., embed=True)):
         # Detect which agent persona to use
         agent = detect_agent_from_response(base_response, tool_calls)
         
-        # Apply persona styling
-        styled_response = apply_persona_styling(base_response, agent)
         return {
             "message": styled_response,
             "intent": intent,
@@ -171,7 +176,7 @@ async def get_memories():
     Get all memories in the vectorDB
     """
     try:
-        memories = memory.get_all_memories()
+        memories = get_all_long_term_mems()
         return {
             "memories": memories 
         }
