@@ -120,7 +120,7 @@ async def query_pos(prompt: str = Body(..., embed=True)):
         agent = detect_agent_from_response(base_response, tool_calls)
         
         return {
-            "message": styled_response,
+            "message": base_response,
             "intent": intent,
             "agent": agent,
             "tool_calls": [tc.get("tool") for tc in tool_calls],
