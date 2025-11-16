@@ -7,7 +7,7 @@ python-dotenv>=1.0.1
 pydantic>=2.6.0
 
 # === Vector database ===
-pinecone-client>=3.0.0
+pinecone>=5.0.0
 
 # === LangChain / LangGraph ecosystem ===
 langchain>=0.2.0
