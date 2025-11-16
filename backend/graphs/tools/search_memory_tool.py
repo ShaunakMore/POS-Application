@@ -1,5 +1,5 @@
 from langchain_core.tools import tool
-from memory.pinecone_db import search_memory
+from backend.memory.pinecone_db import search_memory
 
 @tool
 def search_memory_tool(query: str, k: int = 3) -> str:
