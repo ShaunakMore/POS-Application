@@ -1,5 +1,5 @@
 from langchain_core.tools import tool
-from memory.pinecone_db import add_memory
+from backend.memory.pinecone_db import add_memory
 from datetime import datetime
 
 @tool
