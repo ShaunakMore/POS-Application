@@ -2,7 +2,6 @@ from fastapi import FastAPI, Body, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from backend.graphs.pos_graph import compiled as pos_graph
 from backend.graphs.calender_agent import get_all_events
-from backend.graphs.memory_agent import previous_convos
 from backend.integrations.notion_client import get_pending_tasks
 from backend.graphs.report_agent import handle_report
 from backend.memory.pinecone_db import add_previous_convos, get_all_long_term_mems
