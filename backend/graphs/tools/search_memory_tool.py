@@ -1,7 +1,6 @@
 from langchain_core.tools import tool
-from backend.memory.vector_memory import VectorMemory
+from memory.pinecone_db import search_memory
 
-memory = VectorMemory()
 @tool
 def search_memory_tool(query: str, k: int = 3) -> str:
     """
@@ -17,7 +16,7 @@ def search_memory_tool(query: str, k: int = 3) -> str:
         Relevant past memories
     """
     try:
-        results = memory.search_memory(query, k=k)
+        results = search_memory(query, k=k)
         if not results:
             return "No relevant memories found."
         
